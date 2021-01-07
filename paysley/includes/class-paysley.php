@@ -49,7 +49,7 @@ class Paysley extends WC_Payment_Gateway {
 		$this->payment_type   = 'DB';
 		$this->access_key     = $this->get_option( 'access_key' );
 		$this->enable_logging = 'yes' === $this->get_option( 'enable_logging' );
-		$this->is_test_mode   = 'mp_live' !== substr( $this->access_key, 0, 7 );
+		$this->is_test_mode   = 'py_live' !== substr( $this->access_key, 0, 7 );
 		$this->init_api();
 	}
 
@@ -194,10 +194,10 @@ class Paysley extends WC_Payment_Gateway {
 			'cart_items'   => $this->get_cart_items( $order_id ),
 			'cancel_url'   => wc_get_checkout_url(),
 			'return_url'   => $return_url,
-			'response_url' => $return_url . '&mp_token=' . $token,
+			'response_url' => $return_url . '&py_token=' . $token,
 		);
 		$log_body                 = $body;
-		$log_body['response_url'] = $return_url . '&mp_token=*****';
+		$log_body['response_url'] = $return_url . '&py_token=*****';
 		$this->log( 'get_payment_url - body: ' . wp_json_encode( $log_body ) );
 
 		$results = Paysley_API::generate_pos_link( $body );
@@ -409,7 +409,7 @@ class Paysley extends WC_Payment_Gateway {
 	 * @param int $order_id - Order Id.
 	 */
 	public function response_page( $order_id ) {
-		$token = get_query_var( 'mp_token' );
+		$token = get_query_var( 'py_token' );
 
 		if ( ! empty( $token ) ) {
 			$this->log( 'get response from the gateway reponse url' );

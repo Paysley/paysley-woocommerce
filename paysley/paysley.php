@@ -3,11 +3,11 @@
  * Plugin Name:          Paysley
  * Plugin URI:           https://github.com/PaysleyLLC/paysley-woocommerce
  * Description:          Receive payments using Paysley.
- * Version:              1.0.0
+ * Version:              1.0.1
  * Requires at least:    5.0
- * Tested up to:         5.5.3
+ * Tested up to:         5.6
  * WC requires at least: 3.9.0
- * WC tested up to:      4.0.1
+ * WC tested up to:      4.8.0
  * Requires PHP:         7.0
  * Author:               Paysley
  * Author URI:           https://paysley.com
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'PAYSLEY_PLUGIN_VERSION', '1.0.0' );
+define( 'PAYSLEY_PLUGIN_VERSION', '1.0.1' );
 
 register_activation_hook( __FILE__, 'paysley_activate_plugin' );
 register_uninstall_hook( __FILE__, 'paysley_uninstall_plugin' );
@@ -103,7 +103,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'paysley_plugi
  */
 function paysley_add_query_vars_filter( $vars ) {
 	$vars[] = 'response';
-	$vars[] = 'mp_token';
+	$vars[] = 'py_token';
 	return $vars;
 }
 add_filter( 'query_vars', 'paysley_add_query_vars_filter' );
